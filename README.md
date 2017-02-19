@@ -9,9 +9,21 @@ Current strategies are:
 * `now` which instructs Buffer to share the update immediately
 * `ignore` which ignores the share, default
 
-When a link has been shared, update ids are saved and the form is replaced with a single line.
+When a link has been shared, update ids are saved and the form is replaced with a warning.
+
+The link is automatically appended with a white space to the value of text field. Also if the text field is empty, the plugin will use the link title instead.
 
 Interaction with the Buffer API is done using an embedded copy of [bufferapp-php](https://github.com/thewebguy/bufferapp-php).
+
+### Retweets
+
+This plugin is able to schedule retweets instead of normal statuses if via plugin is enabled and it finds a twitter status link as the original source of a link.
+
+### Limitations
+
+This plugin does not handle exceptions and silently fails. For example the update post will silently fail if the text is larger than the tweet limit.
+
+Also the retweet feature considers that only twitter profiles are configured for Buffer sharing and will produce empty updates for the other social networks.
 
 ## Installation
 ### Via Git
@@ -51,4 +63,4 @@ After creating a Buffer App you must add the following lines to your `data/confi
 
 The profile id can be retrieved from the attribute `data-id` in the account switcher of Buffer.
 
-**Note:** this plugin is really simple, does not handle exceptions and could be improved.
+**Note:** this plugin is really stupid, does not handle exceptions, silently fails and could be improved.
