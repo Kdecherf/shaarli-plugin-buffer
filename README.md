@@ -11,6 +11,8 @@ Current strategies are:
 
 When a link has been shared, update ids are saved and the form is replaced with a single line.
 
+Interaction with the Buffer API is done using an embedded copy of [bufferapp-php](https://github.com/thewebguy/bufferapp-php).
+
 ## Installation
 ### Via Git
 
