@@ -1,4 +1,4 @@
-<?
+<?php
 	class BufferApp {
 		private $client_id;
 		private $client_secret;
@@ -83,17 +83,20 @@
 			'400' => 'Media filesize out of acceptable range.',
 		);
 		
-		function __construct($client_id = '', $client_secret = '', $callback_url = '') {
+		function __construct($client_id = '', $client_secret = '', $callback_url = '', $access_token = '') {
 			if ($client_id) $this->set_client_id($client_id);
 			if ($client_secret) $this->set_client_secret($client_secret);
 			if ($callback_url) $this->set_callback_url($callback_url);
 			
-			if ($_GET['code']) {
-				$this->code = $_GET['code'];
-				$this->create_access_token_url();
-			}
-			
-			$this->retrieve_access_token();
+         if ($access_token) $this->set_access_token($access_token);
+         else {
+            if ($_GET['code']) {
+               $this->code = $_GET['code'];
+               $this->create_access_token_url();
+            }
+            
+            $this->retrieve_access_token();
+         }
 		}
 		
 		function go($endpoint = '', $data = '') {
@@ -203,5 +206,8 @@
 		function set_callback_url($callback_url) {
 			$this->callback_url = $callback_url;
 		}
+
+      function set_access_token($access_token) {
+         $this->access_token = $access_token;
+      }
 	}
-?>
