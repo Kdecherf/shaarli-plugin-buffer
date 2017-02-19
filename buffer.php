@@ -66,6 +66,20 @@ function hook_buffer_save_link($data)
             break;
       }
 
+      $retweet = [];
+
+      // Optional part: handle retweets, depends on via plugin
+      if (!empty($_POST['lf_original_url']) &&
+            preg_match('@^https://twitter.com/.+/status/([0-9]+)$@', escape($_POST['lf_original_url']), $statuses))
+      {
+         $retweet['retweet[tweet_id]'] = $statuses[1];
+
+         if (!empty($text))
+         {
+            $retweet['retweet[comment]'] = $text;
+         }
+      }
+
       $client_id = $conf->get('config.BUFFER_CLIENT_ID');
       $client_secret = $conf->get('config.BUFFER_CLIENT_SECRET');
       $access_token = $conf->get('config.BUFFER_ACCESS_TOKEN');
@@ -77,14 +91,25 @@ function hook_buffer_save_link($data)
          $buffer_app = new BufferApp($client_id, $client_secret, null, $access_token);
          $update_ids = [];
 
+         $update = [
+            'shorten' => false,
+            'now' => $now
+         ];
+
          foreach($profiles_id as $profile)
          {
-            $resp = $buffer_app->go('/updates/create', [
-                  'text' => $buffer_text,
-                  'shorten' => false,
-                  'now' => $now,
-                  'profile_ids[]' => $profile
-            ]);
+            $update['profile_ids[]'] = $profile;
+
+            if (!empty($retweet))
+            {
+               $update = array_merge($update, $retweet);
+            }
+            else
+            {
+               $update['text'] = $buffer_text;
+            }
+
+            $resp = $buffer_app->go('/updates/create', $update);
 
             if (isset($resp->updates[0]))
             {
