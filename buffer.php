@@ -45,14 +45,10 @@ function hook_buffer_save_link($data)
       {
          $text = escape($_POST['lf_buffer_text']);
       }
-      else
-      {
-         $text = $data['title'];
-      }
 
       $data['buffer_text'] = $text;
 
-      $buffer_text = $text . ' ' . $data['url'];
+      $buffer_text = (!empty($text) ? $text : $data['title']) . ' ' . $data['url'];
 
       $now = false;
       $lf_buffer_strategy = escape($_POST['lf_buffer_strategy']);
