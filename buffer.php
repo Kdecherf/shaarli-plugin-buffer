@@ -58,12 +58,26 @@ function hook_buffer_save_link($data)
          case 'now':
             $now = true;
             break;
+         case 'rand10m':
+            $date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(5,15))));
+            $lf_buffer_strategy = 'scheduled_at';
+            break;
+         case 'rand1h':
+            $date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(45,75))));
+            $lf_buffer_strategy = 'scheduled_at';
+            break;
          case 'schedule':
             // noop
             break;
          default:
             $lf_buffer_strategy = 'schedule';
             break;
+      }
+
+      $scheduled_at = null;
+      if ($lf_buffer_strategy === 'scheduled_at')
+      {
+         $scheduled_at = $date->format('c');
       }
 
       $retweet = [];
@@ -93,7 +107,8 @@ function hook_buffer_save_link($data)
 
          $update = [
             'shorten' => false,
-            'now' => $now
+            'now' => $now,
+            'scheduled_at' => $scheduled_at,
          ];
 
          foreach($profiles_id as $profile)
