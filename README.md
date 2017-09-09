@@ -6,6 +6,8 @@ It adds 2 fields in the link edition page for the text and the sharing strategy.
 
 Current strategies are:
 * `schedule` which appends the update to the normal schedule of the profile
+* `± 10 minutes` which instructs Buffer to share the update in 5 to 15 minutes
+* `± 10 hour` which instructs Buffer to share the update in 45 to 75 minutes
 * `now` which instructs Buffer to share the update immediately
 * `ignore` which ignores the share, default
 
