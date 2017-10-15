@@ -51,6 +51,7 @@ function hook_buffer_save_link($data)
       $buffer_text = (!empty($text) ? $text : $data['title']) . ' ' . $data['url'];
 
       $now = false;
+      $top = false;
       $lf_buffer_strategy = escape($_POST['lf_buffer_strategy']);
 
       switch ($lf_buffer_strategy)
@@ -69,6 +70,9 @@ function hook_buffer_save_link($data)
          case 'schedule':
             // noop
             break;
+         case 'schedule_top':
+            $top = true;
+            break;
          default:
             $lf_buffer_strategy = 'schedule';
             break;
@@ -83,6 +87,7 @@ function hook_buffer_save_link($data)
       $retweet = [];
 
       // Optional part: handle retweets, depends on via plugin
+      // XXX: replace preg_match with parse_url
       if (!empty($_POST['lf_original_url']) &&
             preg_match('@^https://twitter.com/.+/status/([0-9]+)$@', escape($_POST['lf_original_url']), $statuses))
       {
@@ -108,6 +113,7 @@ function hook_buffer_save_link($data)
          $update = [
             'shorten' => false,
             'now' => $now,
+            'top' => $top,
             'scheduled_at' => $scheduled_at,
          ];
 
