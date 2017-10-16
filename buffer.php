@@ -78,12 +78,6 @@ function hook_buffer_save_link($data)
             break;
       }
 
-      $scheduled_at = null;
-      if ($lf_buffer_strategy === 'scheduled_at')
-      {
-         $scheduled_at = $date->format('c');
-      }
-
       $retweet = [];
 
       // Optional part: handle retweets, depends on via plugin
@@ -114,8 +108,12 @@ function hook_buffer_save_link($data)
             'shorten' => false,
             'now' => $now,
             'top' => $top,
-            'scheduled_at' => $scheduled_at,
          ];
+
+         if ($lf_buffer_strategy === 'scheduled_at')
+         {
+            $update['scheduled_at'] = $date->format('c');
+         }
 
          foreach($profiles_id as $profile)
          {
