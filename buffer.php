@@ -43,12 +43,19 @@ function hook_buffer_save_link($data)
    {
       if (!empty($_POST['lf_buffer_text']))
       {
-         $text = escape($_POST['lf_buffer_text']);
+         $text = escape(trim($_POST['lf_buffer_text']));
       }
 
       $data['buffer_text'] = $text;
 
-      $buffer_text = (!empty($text) ? $text : $data['title']) . ' ' . $data['url'];
+      if (empty($text))
+      {
+         $buffer_text = $data['title'] . ' ' . $data['url'];
+      }
+      else
+      {
+         $buffer_text = str_replace(['[url]', '[orig]'], [$data['url'], $data['original_url']], $text);
+      }
 
       $now = false;
       $top = false;

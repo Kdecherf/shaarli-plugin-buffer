@@ -9,16 +9,57 @@ function bufferCounter(textarea) {
       countField.className = '';
    }
 
-   countField.innerHTML = (maxlimit - textarea.value.length) + ' chars left';
+   subTotal = maxlimit - textarea.value.length;
+
+   // Update counter for [url] reference
+   urlRef = textarea.value.match(/\[url\]/i);
+
+   if (urlRef != null && urlRef.length > 0) {
+      // As we add the url explicitly, we add back the 24 characters of the url
+      // in the count
+      subTotal += 24;
+
+      subTotal -= ( 24 - 5 ) * urlRef.length;
+   }
+
+   // Update counter for [orig] reference
+   origRef = textarea.value.match(/\[orig\]/i);
+   if (origRef != null && origRef.length > 0) {
+      subTotal -= ( 24 - 5 ) * origRef.length;
+   }
+
+   countField.innerHTML = subTotal + ' chars left';
+}
+
+function appendText(str) {
+   var textarea = document.getElementById('buffer-text');
+
+   textarea.value = textarea.value + str;
+   bufferCounter(textarea);
+}
+
+function appendElementValueById(id) {
+   var val = document.getElementById(id).value;
+   appendText(val);
 }
 </script>
 
 <fieldset>
 <legend>Buffer</legend>
-<label for="buffer-text"><i>Text <small>(link is appended at the end of the text)</small></i></label>
+<label for="buffer-text"><i>Text <small>(link is appended at the end of the text or via [url])</small></i></label>
 <div class="buffer-text">
    <textarea id="buffer-text" oninput="bufferCounter(this)" name="lf_buffer_text" rows="4" cols="25"></textarea>
    <span id="buffer-counter"></span>
+</div>
+<div class="buffer-helpers">
+   <button type="button" onclick="appendElementValueById('lf_title')">title</button>
+   <button type="button" onclick="appendElementValueById('lf_description')">description</button>
+   <button type="button" onclick="appendText(' [url] ')">url</button>
+   <button type="button" onclick="appendText(' /via [orig]')">via</button>
+   <button type="button" onclick="appendText('… ')">…</button>
+   <button type="button" onclick="appendText(' — ')">—</button>
+   <button type="button" onclick="appendText('« ')">«</button>
+   <button type="button" onclick="appendText(' »')">»</button>
 </div>
 <label><i>Share strategy</i></label>
 <div class="buffer-strategies">
