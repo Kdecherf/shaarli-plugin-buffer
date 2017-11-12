@@ -19,10 +19,12 @@ function bufferCounter(textarea) {
 <textarea id="buffer-text" onkeyup="bufferCounter(this)" name="lf_buffer_text" rows="4" cols="25"></textarea>
 <span id="buffer-counter">116 characters remaining</span>
 <label><i>Share strategy</i></label>
-<label><input type="radio" name="lf_buffer_strategy" value="schedule" class="lf_input"> schedule</label>
-<label><input type="radio" name="lf_buffer_strategy" value="schedule_top" class="lf_input"> schedule on top</label>
-<label><input type="radio" name="lf_buffer_strategy" value="now" class="lf_input"> now</label>
-<label><input type="radio" name="lf_buffer_strategy" value="rand10m" class="lf_input"> ± 10 minutes</label>
-<label><input type="radio" name="lf_buffer_strategy" value="rand1h" class="lf_input"> ± 1 hour</label>
-<label><input type="radio" name="lf_buffer_strategy" value="ignore" checked="checked" class="lf_input"> ignore</label>
+<div class="buffer-strategies">
+   <label><input type="radio" name="lf_buffer_strategy" value="schedule" class="lf_input"> schedule</label>
+   <label><input type="radio" name="lf_buffer_strategy" value="schedule_top" class="lf_input"> schedule on top</label>
+   <label><input type="radio" name="lf_buffer_strategy" value="now" class="lf_input"> now</label>
+   <label><input type="radio" name="lf_buffer_strategy" value="rand10m" class="lf_input"> ± 10 minutes</label>
+   <label><input type="radio" name="lf_buffer_strategy" value="rand1h" class="lf_input"> ± 1 hour</label>
+   <label><input type="radio" name="lf_buffer_strategy" value="ignore" checked="checked" class="lf_input"> ignore</label>
+</div>
 </fieldset>
