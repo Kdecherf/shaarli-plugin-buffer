@@ -54,6 +54,10 @@ function hook_buffer_save_link($data)
       }
       else
       {
+         if (!preg_match('/\[url\]/i', $text))
+         {
+            $buffer_text += " {$data['url']}";
+         }
          $buffer_text = str_replace(['[url]', '[orig]'], [$data['url'], $data['original_url']], $text);
       }
 
