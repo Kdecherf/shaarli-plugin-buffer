@@ -43,7 +43,7 @@ function hook_buffer_save_link($data)
    {
       if (!empty($_POST['lf_buffer_text']))
       {
-         $text = escape(trim($_POST['lf_buffer_text']));
+         $text = trim($_POST['lf_buffer_text']);
       }
 
       $data['buffer_text'] = $text;
