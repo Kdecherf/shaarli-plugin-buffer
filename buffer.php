@@ -97,7 +97,7 @@ function hook_buffer_save_link($data)
          $parts = parse_url($_POST['lf_original_url']);
 
          if (in_array($parts['host'], ['twitter.com', 'mobile.twitter.com']) &&
-            preg_match('@^/.+/status(:es)?/([0-9]+)$@', escape($parts['path']), $statuses))
+            preg_match('@^/.+/status(?:es)?/([0-9]+)$@', escape($parts['path']), $statuses))
          {
             $retweet['retweet[tweet_id]'] = $statuses[1];
 
