@@ -92,15 +92,19 @@ function hook_buffer_save_link($data)
       $retweet = [];
 
       // Optional part: handle retweets, depends on via plugin
-      // XXX: replace preg_match with parse_url
-      if (!empty($_POST['lf_original_url']) &&
-            preg_match('@^https://twitter.com/.+/status/([0-9]+)$@', escape($_POST['lf_original_url']), $statuses))
+      if (!empty($_POST['lf_original_url']))
       {
-         $retweet['retweet[tweet_id]'] = $statuses[1];
+         $parts = parse_url($_POST['lf_original_url']);
 
-         if (!empty($text))
+         if (in_array($parts['host'], ['twitter.com', 'mobile.twitter.com']) &&
+            preg_match('@^/.+/status(:es)?/([0-9]+)$@', escape($parts['path']), $statuses))
          {
-            $retweet['retweet[comment]'] = $text;
+            $retweet['retweet[tweet_id]'] = $statuses[1];
+
+            if (!empty($text))
+            {
+               $retweet['retweet[comment]'] = $text;
+            }
          }
       }
 
