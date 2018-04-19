@@ -103,7 +103,7 @@ function hook_buffer_save_link($data)
 
             if (!empty($text))
             {
-               $retweet['retweet[comment]'] = $text;
+               $retweet['retweet[comment]'] = str_replace([' [url]'], [''], trim($text));
             }
          }
       }
