@@ -104,15 +104,15 @@
 			if ($client_secret) $this->set_client_secret($client_secret);
 			if ($callback_url) $this->set_callback_url($callback_url);
 			
-         if ($access_token) $this->set_access_token($access_token);
-         else {
-            if ($_GET['code']) {
-               $this->code = $_GET['code'];
-               $this->create_access_token_url();
-            }
-            
-            $this->retrieve_access_token();
-         }
+		 if ($access_token) $this->set_access_token($access_token);
+		 else {
+			if ($_GET['code']) {
+			   $this->code = $_GET['code'];
+			   $this->create_access_token_url();
+			}
+			
+			$this->retrieve_access_token();
+		 }
 		}
 		
 		function go($endpoint = '', $data = '') {
@@ -206,9 +206,9 @@
 		
 		function get_login_url() {
 			return $this->authorize_url . '?'
-    		. 'client_id=' . $this->client_id
-    		. '&redirect_uri=' . urlencode($this->callback_url)
-    		. '&response_type=code';
+			. 'client_id=' . $this->client_id
+			. '&redirect_uri=' . urlencode($this->callback_url)
+			. '&response_type=code';
 		}
 		
 		function set_client_id($client_id) {
@@ -223,7 +223,7 @@
 			$this->callback_url = $callback_url;
 		}
 
-      function set_access_token($access_token) {
-         $this->access_token = $access_token;
-      }
+	  function set_access_token($access_token) {
+		 $this->access_token = $access_token;
+	  }
 	}
