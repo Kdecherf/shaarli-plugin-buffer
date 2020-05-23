@@ -143,7 +143,12 @@ function hook_buffer_save_link($data)
 					$update['text'] = $buffer_text;
 				}
 
-				$resp = $buffer_app->go('/updates/create', $update);
+				try {
+					$resp = $buffer_app->go('/updates/create', $update);
+				} catch (\Exception $e) {
+					echo "Buffer returned an error: {$e->getMessage()}";
+					trigger_error($e, E_USER_ERROR);
+				}
 
 				if (isset($resp->updates[0]))
 				{

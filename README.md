@@ -66,4 +66,4 @@ After creating a Buffer App you must add the following lines to your `data/confi
 
 The profile id can be retrieved from the attribute `data-id` in the account switcher of Buffer.
 
-**Note:** this plugin is really stupid, does not handle exceptions, silently fails and could be improved.
+**Note:** this plugin is quite simple and stupid, it throws dirty exceptions and could be improved.

@@ -151,7 +151,7 @@
 		}
 		
 		function error($error) {
-			return (object) array('error' => $this->errors[$error]);
+			return $this->errors[$error];
 		}
 		
 		function create_access_token_url() {
@@ -190,7 +190,7 @@
 			
 			$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($code >= 400) {
-				return $this->error($code);
+				throw new \Exception($this->error($code));
 			}
 			
 			return json_decode($rs);
