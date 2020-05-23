@@ -1,5 +1,7 @@
 <?php
 
+use Shaarli\Plugin\PluginManager;
+
 include_once PluginManager::$PLUGINS_PATH . '/buffer/bufferapp.php';
 
 /**
