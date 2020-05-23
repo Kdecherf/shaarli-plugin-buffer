@@ -8,8 +8,8 @@ Current strategies are:
 * `schedule` which appends the update to the normal schedule of the profile
 * `schedule on top` which adds the update on the top of the normal schedule
 * `now` which instructs Buffer to share the update immediately
-* `± 10 minutes` which instructs Buffer to share the update in 5 to 15 minutes
-* `± 10 hour` which instructs Buffer to share the update in 45 to 75 minutes
+* `± 1 hour` which instructs Buffer to share the update somewhere between 40 and 90 minutes
+* `± 4 hours` which instructs Buffer to share the update somewhere between in 90 and 300 minutes
 * `ignore` which ignores the share, default
 
 When a link has been shared, update ids are saved and the form is replaced with a warning.

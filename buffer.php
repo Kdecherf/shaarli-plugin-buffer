@@ -75,7 +75,19 @@ function hook_buffer_save_link($data)
 				$lf_buffer_strategy = 'scheduled_at';
 				break;
 			case 'rand1h':
-				$date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(45,75))));
+				$date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(40,90))));
+				$lf_buffer_strategy = 'scheduled_at';
+				break;
+			case 'today':
+				$date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(40,90))));
+				$lf_buffer_strategy = 'scheduled_at';
+				break;
+			case 'tomorrow':
+				$date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(40,90))));
+				$lf_buffer_strategy = 'scheduled_at';
+				break;
+			case 'rand4h':
+				$date = (new DateTime())->add(new DateInterval(sprintf("PT%dM", mt_rand(90,300))));
 				$lf_buffer_strategy = 'scheduled_at';
 				break;
 			case 'schedule':
